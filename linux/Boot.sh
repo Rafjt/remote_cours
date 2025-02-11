@@ -47,7 +47,7 @@ mkdir -p /mnt/shared
 mount /dev/vg0/shared /mnt/shared
 
 # Mise à jour des miroirs Reflector
-reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
+#reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 
 # Installation de la base Arch Linux
 pacstrap /mnt base linux linux-firmware lvm2 vim sudo
