@@ -9,13 +9,14 @@ parted /dev/sda --script mkpart ESP fat32 1MiB 513MiB
 parted /dev/sda --script set 1 esp on
 parted /dev/sda --script mkpart LUKS ext4 513MiB 100%
 
+# Définition du mot de passe par défaut
+echo "1234Pass" | cryptsetup luksFormat --type luks1 /dev/sdX2 #<-- créer une partition réservée a EFI
+echo "1234Pass" | cryptsetup open /dev/sdX2 cryptroot #<-- créer une partition pour le stockage ou un système chiffré.
 
 
 
 _________________
-# Définition du mot de passe par défaut
-echo "1234Pass" | cryptsetup luksFormat --type luks1 /dev/sdX2
-echo "1234Pass" | cryptsetup open /dev/sdX2 cryptroot
+
 
 # Création des volumes LVM
 pvcreate /dev/mapper/cryptroot
