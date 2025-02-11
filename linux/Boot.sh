@@ -1,5 +1,8 @@
 #!/bin/bash
 
+#installer parted
+pacman -Sy parted
+
 # Définition du mot de passe par défaut
 echo "1234Pass" | cryptsetup luksFormat --type luks1 /dev/sdX2
 echo "1234Pass" | cryptsetup open /dev/sdX2 cryptroot
