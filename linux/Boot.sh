@@ -29,13 +29,14 @@ mkfs.ext4 /dev/vg0/virtualbox
 mkfs.ext4 /dev/vg0/shared
 mkfs.ext4 /dev/vg0/encrypted
 
-_________________
 
 # Configuration de la partition EFI
 parted /dev/sdX mklabel gpt
 parted /dev/sdX mkpart ESP fat32 1MiB 512MiB
 parted /dev/sdX set 1 boot on
 mkfs.fat -F32 /dev/sdX1
+
+_________________
 
 # Montage des partitions
 mount /dev/vg0/root /mnt
