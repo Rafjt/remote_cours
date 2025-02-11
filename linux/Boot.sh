@@ -13,11 +13,6 @@ parted /dev/sda --script mkpart LUKS ext4 513MiB 100%
 echo "1234Pass" | cryptsetup luksFormat --type luks1 /dev/sdX2 #<-- créer une partition réservée a EFI
 echo "1234Pass" | cryptsetup open /dev/sdX2 cryptroot #<-- créer une partition pour le stockage ou un système chiffré.
 
-
-
-_________________
-
-
 # Création des volumes LVM
 pvcreate /dev/mapper/cryptroot
 vgcreate vg0 /dev/mapper/cryptroot
@@ -25,6 +20,10 @@ lvcreate -L 10G -n encrypted vg0   # Espace chiffré monté manuellement
 lvcreate -L 15G -n virtualbox vg0  # Espace pour VirtualBox
 lvcreate -L 5G -n shared vg0       # Dossier partagé père/fils
 lvcreate -l 100%FREE -n root vg0   # Système principal
+
+
+_________________
+
 
 # Formatage des partitions
 mkfs.ext4 /dev/vg0/root
