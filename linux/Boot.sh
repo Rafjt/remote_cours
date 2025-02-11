@@ -31,10 +31,10 @@ mkfs.ext4 /dev/vg0/encrypted
 
 
 # Configuration de la partition EFI
-parted /dev/sdX mklabel gpt
-parted /dev/sdX mkpart ESP fat32 1MiB 512MiB
-parted /dev/sdX set 1 boot on
-mkfs.fat -F32 /dev/sdX1
+#parted /dev/sdX mklabel gpt
+#parted /dev/sdX mkpart ESP fat32 1MiB 512MiB
+#parted /dev/sdX set 1 boot on
+#mkfs.fat -F32 /dev/sdX1
 
 _________________
 
