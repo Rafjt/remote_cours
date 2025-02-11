@@ -46,9 +46,6 @@ mount /dev/vg0/virtualbox /mnt/virtualbox
 mkdir -p /mnt/shared
 mount /dev/vg0/shared /mnt/shared
 
-_________________
-
-
 # Mise à jour des miroirs Reflector
 reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
 
@@ -79,6 +76,10 @@ echo "127.0.1.1 archlinux.localdomain archlinux" >> /etc/hosts
 pacman -S --noconfirm grub efibootmgr
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
 grub-mkconfig -o /boot/grub/grub.cfg
+
+# snapshot 7
+
+_____
 
 # Création des utilisateurs
 useradd -m -G wheel -s /bin/bash collegue
