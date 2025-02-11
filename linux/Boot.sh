@@ -3,6 +3,16 @@
 #installer parted
 pacman -Sy parted
 
+# à définir
+parted /dev/sda --script mklabel gpt
+parted /dev/sda --script mkpart ESP fat32 1MiB 513MiB
+parted /dev/sda --script set 1 esp on
+parted /dev/sda --script mkpart LUKS ext4 513MiB 100%
+
+
+
+
+_________________
 # Définition du mot de passe par défaut
 echo "1234Pass" | cryptsetup luksFormat --type luks1 /dev/sdX2
 echo "1234Pass" | cryptsetup open /dev/sdX2 cryptroot
