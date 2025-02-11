@@ -36,7 +36,6 @@ mkfs.ext4 /dev/vg0/encrypted
 #parted /dev/sdX set 1 boot on
 #mkfs.fat -F32 /dev/sdX1
 
-_________________
 
 # Montage des partitions
 mount /dev/vg0/root /mnt
@@ -46,6 +45,9 @@ mkdir -p /mnt/virtualbox
 mount /dev/vg0/virtualbox /mnt/virtualbox
 mkdir -p /mnt/shared
 mount /dev/vg0/shared /mnt/shared
+
+_________________
+
 
 # Mise à jour des miroirs Reflector
 reflector --latest 10 --sort rate --save /etc/pacman.d/mirrorlist
