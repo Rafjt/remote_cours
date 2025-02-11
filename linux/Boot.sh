@@ -59,7 +59,7 @@ pacstrap /mnt base linux linux-firmware lvm2 vim sudo
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Chroot dans le système installé
-arch-chroot /mnt <<EOF
+arch-chroot /mnt 
 
 # Configuration du fuseau horaire
 ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
