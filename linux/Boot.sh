@@ -21,15 +21,15 @@ lvcreate -L 15G -n virtualbox vg0  # Espace pour VirtualBox
 lvcreate -L 5G -n shared vg0       # Dossier partagé père/fils
 lvcreate -l 100%FREE -n root vg0   # Système principal
 
-
-_________________
-
+# dernière snapshot snap3
 
 # Formatage des partitions
 mkfs.ext4 /dev/vg0/root
 mkfs.ext4 /dev/vg0/virtualbox
 mkfs.ext4 /dev/vg0/shared
 mkfs.ext4 /dev/vg0/encrypted
+
+_________________
 
 # Configuration de la partition EFI
 parted /dev/sdX mklabel gpt
