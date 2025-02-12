@@ -10,8 +10,8 @@ parted /dev/sda --script set 1 esp on
 parted /dev/sda --script mkpart LUKS ext4 513MiB 100%
 
 # Définition du mot de passe par défaut
-echo "azerty123" | cryptsetup luksFormat --type luks1 /dev/sdX2 #<-- créer une partition réservée a EFI
-echo "azerty123" | cryptsetup open /dev/sdX2 cryptroot #<-- créer une partition pour le stockage ou un système chiffré.
+echo "azerty123" | cryptsetup luksFormat --type luks1 /dev/sda2 #<-- créer une partition réservée a EFI
+echo "azerty123" | cryptsetup open /dev/sda2 cryptroot #<-- créer une partition pour le stockage ou un système chiffré.
 
 # Création des volumes LVM
 pvcreate /dev/mapper/cryptroot
@@ -40,7 +40,7 @@ mkfs.ext4 /dev/vg0/encrypted
 # Montage des partitions
 mount /dev/vg0/root /mnt
 mkdir -p /mnt/boot
-mount /dev/sdX1 /mnt/boot
+mount /dev/sda1 /mnt/boot
 mkdir -p /mnt/virtualbox
 mount /dev/vg0/virtualbox /mnt/virtualbox
 mkdir -p /mnt/shared
