@@ -1,17 +1,17 @@
 #!/bin/bash
 
-#installer parted
+# Installer parted
 pacman -Sy parted
 
-# à définir
+# À définir
 parted /dev/sda --script mklabel gpt
 parted /dev/sda --script mkpart ESP fat32 1MiB 513MiB
 parted /dev/sda --script set 1 esp on
 parted /dev/sda --script mkpart LUKS ext4 513MiB 100%
 
 # Définition du mot de passe par défaut
-echo "azerty123" | cryptsetup luksFormat --type luks1 /dev/sda2 #<-- créer une partition réservée a EFI
-echo "azerty123" | cryptsetup open /dev/sda2 cryptroot #<-- créer une partition pour le stockage ou un système chiffré.
+echo "azerty123" | cryptsetup luksFormat --type luks1 /dev/sda2
+echo "azerty123" | cryptsetup open /dev/sda2 cryptroot
 
 # Création des volumes LVM
 pvcreate /dev/mapper/cryptroot
@@ -21,9 +21,15 @@ lvcreate -L 15G -n virtualbox vg0  # Espace pour VirtualBox
 lvcreate -L 5G -n shared vg0       # Dossier partagé père/fils
 lvcreate -l 100%FREE -n root vg0   # Système principal
 
-# dernière snapshot snap3
+# Dernière snapshot snap3
 
 # Formatage des partitions
+ARCH=$(uname -m)  # Récupération de l'architecture
+
+if [[ "$ARCH" == "x86_64" ]]; then
+    mkfs.fat -F32 /dev/sda1  # Exécuté uniquement si l'architecture est AMD64 (x86_64)
+fi
+
 mkfs.ext4 /dev/vg0/root
 mkfs.ext4 /dev/vg0/virtualbox
 mkfs.ext4 /dev/vg0/shared
