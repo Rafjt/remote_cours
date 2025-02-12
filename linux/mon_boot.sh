@@ -90,7 +90,7 @@ chmod 770 /shared
 pacman -S --noconfirm xorg hyprland firefox neovim virtualbox linux-headers base-devel git htop neofetch nano
 
 # Activation des services
-systemctl enable NetworkManager
+#systemctl enable NetworkManager
 
 # Ajout d'un alias pour monter l'espace sécurisé
 echo 'alias mount_secure="cryptsetup open /dev/sda2 secure && mount /dev/mapper/secure /mnt/secure"' >> /home/collegue/.bashrc
