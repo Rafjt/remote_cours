@@ -8,6 +8,9 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
+# Suppression de toute données existante sur le disque
+wipefs --all --force /dev/sda
+
 # Installer parted
 pacman -Sy --noconfirm parted
 
