@@ -122,41 +122,21 @@ echo "Installation terminée. Vous pouvez maintenant redémarrer."
 
 #!/bin/bash
 
-set -e  # Arrêter le script en cas d'erreur
+set -e  # Stoppe le script en cas d'erreur
 
-# Configuration du clavier et de l'horloge
-echo "[+] Configuration du clavier et de l'horloge..."
 loadkeys fr-latin1
 timedatectl set-ntp true
 
-# Vérification du mode UEFI
-if [ ! -d "/sys/firmware/efi" ]; then
-    echo "[-] Erreur : Le système n'est pas en mode UEFI !"
-    exit 1
-fi
 
-# Demande de confirmation avant d'effacer le disque
-echo "[-] ATTENTION : Toutes les données sur /dev/sda seront effacées !"
-read -p "Voulez-vous continuer ? (o/N) " confirm
-if [[ "$confirm" != "o" ]]; then
-    echo "[-] Opération annulée."
-    exit 1
-fi
-
-# Partitionnement du disque
-echo "[-] Suppression des partitions existantes..."
 wipefs --all --force /dev/sda
 parted /dev/sda --script mklabel gpt
 parted /dev/sda --script mkpart ESP fat32 1MiB 513MiB
 parted /dev/sda --script set 1 esp on
 parted /dev/sda --script mkpart LUKS ext4 513MiB 100%
 
-# Chiffrement avec LUKS
-echo "[+] Configuration du chiffrement LUKS..."
 echo "azerty123" | cryptsetup luksFormat --type luks1 /dev/sda2
 echo "azerty123" | cryptsetup open /dev/sda2 cryptroot
 
-# Création des volumes LVM
 pvcreate /dev/mapper/cryptroot
 vgcreate vg0 /dev/mapper/cryptroot
 lvcreate -L 10G -n crypt_volume vg0
@@ -165,7 +145,6 @@ lvcreate -L 5G -n shared_folder vg0
 lvcreate -L 2G -n swap vg0
 lvcreate -l 100%FREE -n root vg0
 
-# Formatage et montage
 mkfs.fat -F32 /dev/sda1
 mkfs.ext4 /dev/vg0/root
 mkfs.ext4 /dev/vg0/virtualbox
@@ -179,53 +158,27 @@ mkdir -p /mnt/shared
 mount /dev/vg0/shared_folder /mnt/shared
 swapon /dev/vg0/swap
 
-# Génération de fstab
 genfstab -U /mnt >> /mnt/etc/fstab
 
-# Installation du système de base
 pacstrap /mnt base linux linux-firmware nano sudo lvm2 networkmanager
 
-# Configuration système dans le chroot
-arch-chroot /mnt bash <<EOF
+arch-chroot /mnt <<EOF
 ln -sf /usr/share/zoneinfo/Europe/Paris /etc/localtime
 hwclock --systohc
 echo "LANG=fr_FR.UTF-8" > /etc/locale.conf
 echo "KEYMAP=fr-latin1" > /etc/vconsole.conf
-echo "archlinux" > /etc/hostname
 locale-gen
-
-# Configuration de grub
+sed -i 's/^HOOKS=(\(.*\))/HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck)/' /etc/mkinitcpio.conf
+mkinitcpio -P
+pacman -Sy --noconfirm grub efibootmgr
 sed -i 's|^GRUB_CMDLINE_LINUX=.*|GRUB_CMDLINE_LINUX="cryptdevice=/dev/sda2:cryptroot root=/dev/mapper/vg0-root"|' /etc/default/grub
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB --recheck
 grub-mkconfig -o /boot/grub/grub.cfg
-
-# Activation du réseau
 systemctl enable NetworkManager
-
-# Création des utilisateurs
 useradd -m -G wheel -s /bin/bash user
 echo "user:azerty123" | chpasswd
 useradd -m -G users -s /bin/bash fils
 echo "fils:azerty123" | chpasswd
-
-echo "%wheel ALL=(ALL:ALL) ALL" | EDITOR='tee -a' visudo
-
-# Installation des logiciels essentiels
-pacman -Sy --noconfirm vim i3-wm i3status xorg-server firefox ranger network-manager-applet
-
-# Configuration de i3
-mkdir -p /home/user/.config/i3
-echo "exec i3" > /home/user/.xinitrc
-chown user:user /home/user/.xinitrc
-chmod +x /home/user/.xinitrc
-
-# Configuration des locales
-sed -i 's/^#\(fr_FR.UTF-8 UTF-8\)/\1/' /etc/locale.gen
-locale-gen
-echo "LANG=fr_FR.UTF-8" > /etc/locale.conf
-
+echo "%wheel ALL=(ALL:ALL) ALL" | EDITOR='tee -a' visudo    
+pacman -Sy --noconfirm vim i3-wm xorg-xinit xorg-server xterm virtualbox linux-headers firefox neofetch htop git base-devel btop ranger pacman-contrib reflector networkmanager alacritty rofi pavucontrol picom dunst
 EOF
-
-# Fin de l'installation
-echo "[+] Installation terminée ! Redémarre maintenant avec : reboot"
-
