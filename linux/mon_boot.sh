@@ -49,8 +49,6 @@ mkdir -p /mnt/shared
 mount /dev/vg0/shared /mnt/shared
 
 # Installation de la base Arch Linux
-pacstrap /mnt base linux linux-firmware lvm2 vim sudo
-
 pacstrap /mnt base linux linux-firmware nano sudo lvm2 networkmanager
 
 # Génération du fichier fstab
