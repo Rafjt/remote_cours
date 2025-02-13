@@ -166,6 +166,7 @@ mount /dev/vg0/shared /mnt/shared
 swapon /dev/vg0/swap
 
 # Génération de fstab
+mkdir -p /mnt/etc
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Installation de base
