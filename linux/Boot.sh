@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Stopper le script en cas d'erreur
+set -e  # Prévention, le script se stop en cas d'erreur
 
 # Vérification du mode UEFI
 [ -d "/sys/firmware/efi" ] || exit 1
@@ -43,7 +43,7 @@ swapon /dev/vg0/swap
 mkdir -p /mnt/etc
 genfstab -U /mnt >> /mnt/etc/fstab
 
-# Installation de base
+# Installation de base pour linux 
 pacstrap /mnt base linux linux-firmware nano sudo lvm2 networkmanager
 
 # Configuration système
@@ -108,3 +108,5 @@ EOT
 chown -R user:user /home/user/.config/hypr
 
 EOF
+
+# By Romain.P and Rafael.F
