@@ -127,10 +127,6 @@ set -e  # Stopper le script en cas d'erreur
 # Vérification du mode UEFI
 [ -d "/sys/firmware/efi" ] || exit 1
 
-# Demande de confirmation avant d'effacer le disque
-read -p "Toutes les données sur /dev/sda seront effacées ! Continuer ? (o/N) " confirm
-[[ "$confirm" == "o" ]] || exit 1
-
 # Partitionnement
 wipefs --all --force /dev/sda
 parted /dev/sda --script mklabel gpt
