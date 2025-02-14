@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # Prévention, le script se stop en cas d'erreur
+set -e  # Prévention en cas d'erreur
 
 # Vérification du mode UEFI
 [ -d "/sys/firmware/efi" ] || exit 1
