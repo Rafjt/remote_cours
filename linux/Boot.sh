@@ -55,6 +55,10 @@ echo "fr_FR.UTF-8 UTF-8" >> /etc/locale.gen
 locale-gen
 echo "archlinux" > /etc/hostname
 
+echo "KEYMAP=fr" > /etc/vconsole.conf
+
+localectl set-x11-keymap fr
+
 # Initramfs
 sed -i 's/^HOOKS=(.*/HOOKS=(base udev autodetect modconf block encrypt lvm2 filesystems keyboard fsck)/' /etc/mkinitcpio.conf
 mkinitcpio -P
@@ -96,6 +100,9 @@ general {
     gaps_out=10
     border_size=2
     col.active_border=0xff61afef
+}
+input {
+    kb_layout=fr
 }
 EOT
 chown -R user:user /home/user/.config/hypr
