@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # création du fichier et allocation de 5G
-fallocate -l 5G secure_env.img
+dd if=/dev/zero of=secure_env.img bs=1M count=5120
 
 # chiffrement avec LUKS
 cryptsetup luksFormat secure_env.img
