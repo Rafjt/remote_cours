@@ -31,7 +31,22 @@ fat_size = 945
 
 `sector_cluster_2 = data_start`
 
-
 ### Lecture brute du début de la zone data :
 
 `dd if=mydisk.img bs=512 skip=1922 count=4 | hexdump -C`
+
+# 🧪 Résumé : navigation minimale avec dd/hexdump
+### ✔ Lire Boot Sector :
+`hexdump -C mydisk.img | head -n 32`
+
+### ✔ Lire FAT #1 :
+`dd if=mydisk.img bs=512 skip=32 count=8 | hexdump -C`
+
+### ✔ Lire le cluster racine (si root = 2) :
+`dd if=mydisk.img bs=512 skip=$((data_start)) count=1 | hexdump -C`
+
+### ✔ Lire un cluster N :
+```bash
+cluster=N
+dd if=mydisk.img bs=512 skip=$((data_start+(cluster-2))) count=1 | hexdump -C
+```
