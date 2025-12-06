@@ -1,4 +1,4 @@
-🧠 Les offsets importants (FAT32)
+# 🧠 Les offsets importants (FAT32)
 | Champ                | Offset | Taille | Rôle                                   |
 |----------------------|---------|---------|----------------------------------------|
 | Bytes per sector     | 0x0B    | 2       | (souvent 512)                          |
@@ -10,3 +10,28 @@
 
 
 💡 Avec ces valeurs tu peux calculer où se trouve n’importe quel cluster.
+
+
+
+# 3. Trouver le début de la Data Region
+
+Formule :
+
+`data_start_sector = reserved_sectors + number_of_fats * fat_size`
+
+### Exemple typique :
+```bash
+reserved_sectors = 32
+number_of_fats = 2
+fat_size = 945
+→ data_start = 32 + 2 * 945 = 1922
+```
+
+### Donc le cluster #2 (le premier cluster de données) commence au secteur :
+
+`sector_cluster_2 = data_start`
+
+
+### Lecture brute du début de la zone data :
+
+`dd if=mydisk.img bs=512 skip=1922 count=4 | hexdump -C`
