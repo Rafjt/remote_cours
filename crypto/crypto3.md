@@ -29,4 +29,7 @@ KEM => chiffré une clé symétrique via de l’asymétrique
 Clé secrète entre
 
 le problème du log discret, connaisant g, p, g^x(p), il est difficile de trouver le secret x
+
+### Notes importantes 
+- un chiffrement authentifié signifie un chiffrement intègre par exemple => AES-128-CBC + AES-128-EMAC | HMAC-SHA3-512 
  
