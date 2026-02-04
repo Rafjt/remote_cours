@@ -61,7 +61,7 @@ Ils servent à stocker les préférences d'affichaage d'un fichier (cela inclut 
 N'existe que pour les fichiers qui ont été consulter au moins une fois par un user. 
 Les shellbags sont stockés dans des clefs de registres. 
 Permet de notamment récuperer des timestamp lié au fichier en question. 
-Permet de voir si les fichiers ont exister on été ouver supprimer etc...
+Permet de voir si les fichiers ont exister on été **ouvert** **supprimer** etc...
 
 #### Le prefetch :
 
@@ -130,14 +130,74 @@ Secure-delete:
 - Smem: => RAM // rajouter les infos manquante 
 
 
+#### Chiffrement 
+
+FDE: full disc encryption (luks, bitlocker, filevault, etc...)
+
+veracrypt, les conteneur caché sont quasi indetectable 
+
+hashcat: logiciel de cassage de mot de passe. 
 
 
 
-#### Cassage de mots de passe:
+
+## Notes TP Renzik 
+
+- Pour savoir la ou regarder on regarde les data sources et les host et on regarde les secteurs le secteur le plus grands est celui qu'on va regarder
+
+- Regarder user activity pour avoir les programmes les plus utiliser (en cliquant sur les datasource sur la section du dessous). On a aussi les noms de domaines les plus consulter on peut donc trouver des sites intressant comme ransomizer ou veracrypt. On à également l'historique de recherche.
+
+- Pour trouver les prefetch autopsy on va dans run programs et choper les `.pf` quand on clique sur un `.pf` on peut voir le count.
+
+- Checker les favicons peut aussi nous dire quelles sites on été consulter (trier par ordre alphabétique). 
+
+
+- Pour voir les logiciels installer on va dans installed programmes
+
+- Metadata pas très intéressant. 
+- Infos de l'OS pas très intéressant non plus a part pour le nom de user 
+
+- Document récents c'est intéressant par contre, généralement on trie par chemin. clic droit sur le chemin `view source file in directory` 
+
+- Dans run programs on voit les programme qui ont été lancé
+
+- Interesting items permet de voir ce qu'il y a sur le disque qui est suspect on s'est pas si les programmes ont été lancés par exemple
+
+- Les shellbags permettent de voir quelle dossier ont été ouvert. Les lettres bizzare dans les chemin style `Z` c'est suspect. Dans le cas du TP renzik c'était une partition chiffré veracrypt.
+
+- USBDevice-Attached, 
+
+- WEB accounts c'est intéressant on peut voir les compte 
+
+- Bookmark pour voir les favoris ça peut être interessant aussi 
+
+- Le cache c'est du js et des images. On peut faire copier coller sur excel faire supprimer les doublons et récupérer les noms de domaine sans doublons.
+
+- cookie c'est peut pertinent on peut trier par URL et voir certains site intéressant néanmoins. 
+
+- Webform-autofill on peut chopper les mails ça peut être intéressant. 
+
+- Web-history hyper intressant pour chopper les recherches, vaut mieux trier par URL. On peut même voir le nom des mails 
+
+- Web-search c'est un peut moins intéressant mais quand même
+
+- Analysis Results/EncryptionDetech et ou Detected SOFTWARE.LOG1.slack c'est les bases de registres. Celle la on sait que c'est HKLM HKEY_local_machine on le sait prsk elle est dans windows/System32 et pas dans un dossier user. Dedans on peut voirle taut d'entraupie si c'est très élever ça veut dire que c'est très probable que ça soit un fichier chiffré. On peut souvent déchiffrer via veracrypt.
+
+- Analysis Result / exif Metadata=> thumbnail on a les photos avec la géolocalisation.
+
+- Images/videos les trier par Group Name, les images en cache peuvent être utile, ensuite apres aboir passer les dossier inutiles on arrive sur la partie data et c'est la que les média sont intéressants. pour tagger => tag selected files => notable Items. Downloads et Desktop/pictures c'est la partie intéressante. 
+
+Pour générer un rapport => generate report. Ils peuvent être générer en plusieurs format les plus intéressants sont HTML et excel. Si on selectionne excel il faut bien selectionner de le generer avec les bon tag (re cliquer plusieurs fois)
 
 
 
 
-TIPS POUR LE PROJET : FAIRE DU FILE CARVING EN SORTANT JSP QUOI ET LE METRE DANS FOREMOST. 
 
-
+# TIPS POUR LE PROJET : 
+- FAIRE DU FILE CARVING EN SORTANT JSP QUOI ET LE METRE DANS FOREMOST. 
+- Plan de rapport du prof (a reprendre pour le projet):
+    - page de garde 
+    - sommmaire 
+    - presentation des scellé 
+    - un chapitre par scelle qui contient elle meme une section par
+    - artefact (image, historique, programme, etc...)
