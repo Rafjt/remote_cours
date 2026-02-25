@@ -201,3 +201,5 @@ Pour générer un rapport => generate report. Ils peuvent être générer en plu
     - presentation des scellé 
     - un chapitre par scelle qui contient elle meme une section par
     - artefact (image, historique, programme, etc...)
+
+VLC stock dans sa config l'historique des vidéo regarder
