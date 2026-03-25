@@ -23,3 +23,5 @@ NTLM est un protocole d'authentification dev par microsoft.
 ## Kerberos
 
 adopté par microsoft pas propriétaire. 
+
+la différence entre organisation unit et conteneur c'est que la OU on peut y appliquer des GPO
