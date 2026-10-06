@@ -1,4 +1,7 @@
-# Penetration Test Report — Template
+# Penetration Test Report
+> - FERNANDO Rafael
+> - POLACK Romain
+> - COULIBALY Allaye
 
 > **How to use this template**
 >
@@ -134,6 +137,16 @@ availability. A report without limitations is not credible.]
 | --- | --- |
 | **Severity** | [Critical / High / Medium / Low / Info] |
 | **CVSS** | `CVSS:3.1/AV:_/AC:_/PR:_/UI:_/S:_/C:_/I:_/A:_` (`[SCORE]`) |
+| **Affected asset** | [Unambiguous: hostname, IP, URL, parameter] |
+| **CWE** | [CWE-NNN] |
+| **Status** | Open |
+
+### F-02 — [TITLE: SQL Injection DVWA]
+
+| | |
+| --- | --- |
+| **Severity** | [High] |
+| **CVSS** | `3.1#CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H` (`9.0`) -> à justifier |
 | **Affected asset** | [Unambiguous: hostname, IP, URL, parameter] |
 | **CWE** | [CWE-NNN] |
 | **Status** | Open |
