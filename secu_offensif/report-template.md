@@ -145,11 +145,23 @@ availability. A report without limitations is not credible.]
 
 | | |
 | --- | --- |
-| **Severity** | [High] |
-| **CVSS** | `3.1#CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H` (`9.0`) -> à justifier |
-| **Affected asset** | [Unambiguous: hostname, IP, URL, parameter] |
-| **CWE** | [CWE-NNN] |
+| **Severity** | **High** |
+| **CVSS** | `3.1#CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H` (`8.0`) |
+| **Affected asset** | `DVWA – APP`|
+| **CWE** | **CWE-434 — Unrestricted Upload of File with Dangerous Type** |
 | **Status** | Open |
+
+| Métrique | Valeur        | Justification                                                                                                                                          |
+| -------- | ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **AV**   | N — Network   | La fonctionnalité d'upload est accessible via l'interface web réseau.                                                                                  |
+| **AC**   | L — Low       | Aucune condition particulière n'est nécessaire pour téléverser un fichier dangereux lorsque les contrôles de type sont insuffisants.                   |
+| **PR**   | L — Low       | Un utilisateur authentifié avec accès à la fonctionnalité File Upload est nécessaire.                                                                  |
+| **UI**   | R — Required  | Une interaction supplémentaire peut être nécessaire pour déclencher/exploiter le fichier téléversé, selon le scénario retenu.                          |
+| **S**    | U — Unchanged | L'exploitation reste dans le même contexte de sécurité que le composant vulnérable : le code est exécuté dans le contexte du serveur/application DVWA. |
+| **C**    | H — High      | L'exécution de code côté serveur peut permettre d'accéder à des informations accessibles au processus applicatif.                                      |
+| **I**    | H — High      | L'attaquant peut potentiellement modifier des données ou exécuter des actions avec les privilèges du serveur web.                                      |
+| **A**    | H — High      | Une exploitation peut permettre de perturber le fonctionnement de l'application ou du serveur.                                                         |
+
 
 #### Description
 
