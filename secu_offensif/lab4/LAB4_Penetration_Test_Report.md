@@ -81,17 +81,34 @@ The starting briefing identified `corp.local`, the domain controller, six applic
 ### 3.2 Initial access
 Kerberos username enumeration was used to identify valid names. NetExec then obtained AS-REP material for `svc_intranet`. A straight dictionary run with `rockyou.txt` did not recover the password; a second run using `best64.rule` did. The recovered secret is redacted. This provided the first authenticated domain account (F-01).
 
-
+![alt text](3.2-1.png)
+---
 ![alt text](3.2-2)
 
 ### 3.3 Privilege escalation
 The authenticated account was used to inspect the domain password policy. The notes report that the password spray using a single seasonal password succeeded for `jdoe`, `msmith`, and `sconnor`; a later `Corp2026!` round returned `STATUS_LOGON_FAILURE` for the accounts shown in the supplied output. Exact policy values and complete failure output were not retained. The Kerberoasting phase collected ten unique TGS hashes; the notes identify `svc_backup` as a cracked service account, with a contextual wordlist and four-digit suffix strategy.
 
+![alt text](3.3.png)
+---
+![alt text](3.3-2.png)
+---
+![alt text](3.3-3.png)
+
 ### 3.4 Lateral movement and pivoting
 BloodHound CE collection was performed using the compromised `jdoe` account. The graph analysis then identified the path `svc_backup` → `adm_msmith` via `GenericAll`, followed by `adm_msmith` → `CORP.LOCAL` via DCSync/replication rights. The first edge permitted a password reset on the administrative account; the second allowed directory secrets to be requested through replication. The notes indicate that the password reset was verified with SMB authentication.
 
+![alt text](3.4.png)
+---
+![alt text](3.4-2.png)
+---
+![alt text](3.4-f02.png)
+
 ### 3.5 Objectives reached
 The notes record a DCSync operation that returned domain NTLM hashes, including the `krbtgt` hash, followed by successful pass-the-hash authentication as `Administrator`, with NetExec reporting `(admin)`. This is evidence of domain-wide credential compromise in the lab. Actual hashes and passwords are omitted from this report and should be stored only in a restricted evidence repository.
+
+![alt text](3.5-f03.png)
+---
+![alt text](3.5-f03-2.png)
 
 ## 4. Findings
 
@@ -120,6 +137,8 @@ nxc smb 10.10.10.10 -u <VALID_USER> -p '<REDACTED>' --pass-pol
 3. Confirm the `Domain Password Complex` value and record `Account Lockout Threshold`, `Reset Account Lockout Counter`, and `Domain Password Lockout Admins`.
 
 The notes report successful password spraying against `jdoe`, `msmith`, and `sconnor` with one seasonal password. The exact password is redacted.
+
+![alt text](3.3-2.png)
 
 #### Remediation
 
@@ -214,6 +233,8 @@ bloodyAD -u svc_backup -p '<REDACTED>' -d corp.local --host dc01.corp.local set 
 nxc smb 10.10.10.10 -u ADM_MSMITH -p '<REDACTED>'
 ```
 5. Attach an annotated BloodHound screenshot identifying the source node, target node and `GenericAll` edge. The report's embedded graph image is illustrative; add the full-resolution annotated evidence from the lab.
+
+![alt text](3.4-f02.png)
 
 #### Remediation
 
