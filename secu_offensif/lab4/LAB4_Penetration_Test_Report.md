@@ -344,9 +344,6 @@ secretsdump.py 'corp.local/ADM_MSMITH:<REDACTED>@10.10.10.10' -just-dc-ntlm
 | `krbtgt` and other NTLM hashes | Restricted terminal output / notes | Extracted by DCSync | Not confirmed; hashes must be treated as compromised | Not recorded |
 | Pass-the-hash test evidence | Exegol terminal | Successful authentication reported | N/A — evidence only | Notes; screenshot not supplied |
 
-**Required follow-up:** confirm the temporary password for `adm_msmith` has been reset to an approved value; remove temporary files and imported lab data if required; restrict and then securely destroy credential/hash evidence according to the course instructions. Do not claim cleanup is complete until verified.
-
-**Data retention:** retain only redacted report evidence in the submission. Keep raw hashes and credentials in a restricted lab evidence location only for as long as required, then securely delete them.
 
 ## 8. Appendices
 
