@@ -4,10 +4,10 @@
 | --- | --- |
 | **Client** | CORP (lab environment) |
 | **Assessment type** | Internal penetration test, post-foothold |
-| **Testing window** | Not recorded in the supplied notes |
+| **Testing window** | 22/10/2026 - 00h00 until 22/10/2026 - 03h50 |
 | **Report date** | 23 October 2026 |
-| **Team** | Not provided |
-| **Version** | 1.0 |
+| **Team** | FERNANDO Rafael, COULIBALY Allaye, POLACK Romain |
+| **Version** | 2.0 |
 
 **Classification: CONFIDENTIAL** — contains security-sensitive technical details. Distribute on a need-to-know basis.
 
