@@ -187,6 +187,8 @@ hashcat -m 18200 asrep.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashca
 ```
 4. The supplied notes report recovery of the `svc_intranet` password on the rule-based run. Preserve the actual command output in restricted evidence; do not include the password in this report.
 
+![alt text](3.3-3.png)
+
 #### Remediation
 
 | Priority | Effort | Recommendation |
@@ -280,6 +282,10 @@ secretsdump.py 'corp.local/ADM_MSMITH:<REDACTED>@10.10.10.10' -just-dc-ntlm
 ```
 3. The output included the `krbtgt` account and other domain hashes. Hashes are redacted here; retain original output only in restricted evidence.
 4. The notes further record a successful pass-the-hash check using the built-in Administrator account. Add a redacted screenshot showing the target and successful `(admin)` result.
+
+![alt text](3.5-f03-2.png)
+---
+![alt text](3.5-f03.png)
 
 #### Remediation
 
