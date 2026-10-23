@@ -81,6 +81,9 @@ The starting briefing identified `corp.local`, the domain controller, six applic
 ### 3.2 Initial access
 Kerberos username enumeration was used to identify valid names. NetExec then obtained AS-REP material for `svc_intranet`. A straight dictionary run with `rockyou.txt` did not recover the password; a second run using `best64.rule` did. The recovered secret is redacted. This provided the first authenticated domain account (F-01).
 
+
+![alt text](3.2-2)
+
 ### 3.3 Privilege escalation
 The authenticated account was used to inspect the domain password policy. The notes report that the password spray using a single seasonal password succeeded for `jdoe`, `msmith`, and `sconnor`; a later `Corp2026!` round returned `STATUS_LOGON_FAILURE` for the accounts shown in the supplied output. Exact policy values and complete failure output were not retained. The Kerberoasting phase collected ten unique TGS hashes; the notes identify `svc_backup` as a cracked service account, with a contextual wordlist and four-digit suffix strategy.
 
