@@ -361,29 +361,10 @@ secretsdump.py 'corp.local/ADM_MSMITH:<REDACTED>@10.10.10.10' -just-dc-ntlm
 | bloodyAD | Not recorded | Lab password reset through the ACL path |
 | Impacket `secretsdump.py` | Not recorded | DCSync / NTLM hash extraction |
 
-### B. Raw output and screenshots
-Selected BloodHound/UI screenshots are included in the accompanying DOCX and `lab4_evidence/` folder. Raw terminal captures were not embedded because the supplied screenshots may expose credentials or hashes. The source notes should be used to attach redacted versions of:
-- both Hashcat runs and their `Progress` lines;
-- password policy output, including lockout values;
-- Kerberoasting count and `svc_backup` recovery;
-- annotated BloodHound path showing both edges;
-- password-reset verification, DCSync result, and successful `(admin)` pass-the-hash check.
-
-### C. Glossary
+### B. Glossary
 - **AS-REP roasting:** offline password guessing against Kerberos AS-REP material returned for an account that does not require pre-authentication.
 - **Kerberoasting:** requesting service tickets and attempting to recover a service account's password offline.
 - **GenericAll:** broad Active Directory object control, potentially including password reset.
 - **DCSync:** requesting directory replication data to obtain credential material.
 - **Pass-the-hash:** authenticating with an NTLM hash instead of the plaintext password.
 
-## Submission checklist
-
-- [x] Template structure retained and findings F-00 to F-03 documented.
-- [x] CVSS v3.1 vectors included; scores are marked provisional where evidence is incomplete.
-- [x] Credentials and hashes redacted from report text.
-- [x] Business impact and specific remediation included.
-- [x] ATT&CK mappings added at sub-technique level where applicable.
-- [ ] Confirm exact test dates, team names, policy values and all raw output.
-- [ ] Add a full-resolution annotated BloodHound screenshot naming both edges.
-- [ ] Add a redacted screenshot of successful pass-the-hash authentication.
-- [ ] Confirm cleanup and account restoration before submission.
