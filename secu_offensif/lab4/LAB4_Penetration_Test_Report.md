@@ -11,6 +11,8 @@
 
 **Classification: CONFIDENTIAL** — contains security-sensitive technical details. Distribute on a need-to-know basis.
 
+> Further details about how the lab went are available in the notes Lab 4.docx document
+
 ## 1. Executive summary
 
 ### 1.1 Context
