@@ -76,6 +76,8 @@ The notes do not preserve the exact domain password-policy output, the raw Kerbr
 ### 3.1 Reconnaissance
 The starting briefing identified `corp.local`, the domain controller, six application hostnames, five employees, two email addresses (`jdoe@corp.local` and `tbrown@corp.local`), and the service-account naming convention `svc_<application>`. The derived username list was more targeted than a generic ten-million-entry list and generated less noise. Anonymous SMB enumeration opened a session but did not return domain users; this was consistent with restricted remote SAM enumeration rather than proof that the host was unreachable.
 
+![alt text](Reconnaissance)
+
 ### 3.2 Initial access
 Kerberos username enumeration was used to identify valid names. NetExec then obtained AS-REP material for `svc_intranet`. A straight dictionary run with `rockyou.txt` did not recover the password; a second run using `best64.rule` did. The recovered secret is redacted. This provided the first authenticated domain account (F-01).
 
