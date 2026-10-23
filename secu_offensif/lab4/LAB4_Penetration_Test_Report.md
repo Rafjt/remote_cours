@@ -187,7 +187,7 @@ hashcat -m 18200 asrep.txt /usr/share/wordlists/rockyou.txt -r /usr/share/hashca
 ```
 4. The supplied notes report recovery of the `svc_intranet` password on the rule-based run. Preserve the actual command output in restricted evidence; do not include the password in this report.
 
-![alt text](3.3-3.png)
+![alt text](f01.png)
 
 #### Remediation
 
